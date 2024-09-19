@@ -8,7 +8,7 @@ public class Estudiante {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id_estudiante;
 
     private String nombres;
     private String apellido;
@@ -26,8 +26,7 @@ public class Estudiante {
 
     }
 
-    public Estudiante(Long id, String nombres, String apellido, Integer edad, String genero, String numeroDocumento, String ciudadResidencia, String numeroLibretaUniversitaria, Boolean graduado, List<EstudianteCarrera> carreras) {
-        this.id = id;
+    public Estudiante(String nombres, String apellido, Integer edad, String genero, String numeroDocumento, String ciudadResidencia, String numeroLibretaUniversitaria, Boolean graduado, List<EstudianteCarrera> carreras) {
         this.nombres = nombres;
         this.apellido = apellido;
         this.edad = edad;
@@ -39,8 +38,8 @@ public class Estudiante {
         this.carreras = carreras;
     }
 
-    public Long getId() {
-        return id;
+    public Long getId_estudiante() {
+        return id_estudiante;
     }
 
 
