@@ -1,11 +1,14 @@
-/**
- * Hello world!
- *
- */
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 public class App 
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("MYSQL_persistence");
+
+        entityManagerFactory.close();
+
+
     }
 }
