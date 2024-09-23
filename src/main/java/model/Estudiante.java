@@ -1,6 +1,7 @@
 package model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,13 +28,13 @@ public class Estudiante {
     private Boolean graduado;
 
     @OneToMany(mappedBy = "estudiante")
-    private List<EstudianteCarrera> carreras;
+    private List<Carrera> carreras;
 
     public Estudiante() {
 
     }
 
-    public Estudiante(String nombres, String apellido, Integer edad, String genero, String numeroDocumento, String ciudadResidencia, String numeroLibretaUniversitaria, Boolean graduado, List<EstudianteCarrera> carreras) {
+    public Estudiante(String nombres, String apellido, Integer edad, String genero, String numeroDocumento, String ciudadResidencia, String numeroLibretaUniversitaria, Boolean graduado) {
         this.nombres = nombres;
         this.apellido = apellido;
         this.edad = edad;
@@ -42,7 +43,7 @@ public class Estudiante {
         this.ciudadResidencia = ciudadResidencia;
         this.numeroLibretaUniversitaria = numeroLibretaUniversitaria;
         this.graduado = graduado;
-        this.carreras = carreras;
+        this.carreras = new ArrayList<Carrera>();
     }
 
     public Long getId_estudiante() {
@@ -113,4 +114,14 @@ public class Estudiante {
     public void setGraduado(Boolean graduado) {
         this.graduado = graduado;
     }
+
+    public void addCareraa(Carrera c){
+        this.carreras.add(c);
+    }
+
+    public List<Carrera> getCarreras(){
+        return new ArrayList<>(carreras);
+    }
+
+
 }

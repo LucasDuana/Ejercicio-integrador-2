@@ -47,10 +47,10 @@ public class Carrera {
     }
 
     public List<EstudianteCarrera> getEstudiantes() {
-        return estudiantes;
+        return new ArrayList<>(estudiantes);
     }
 
-    public void setEstudiantes(List<EstudianteCarrera> estudiantes) {
-        this.estudiantes = estudiantes;
+    public void addEstudiante(EstudianteCarrera e){
+        this.estudiantes.add(e);
     }
 }
