@@ -4,6 +4,7 @@ import model.Estudiante;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EstudianteRepositoryImpl implements EstudianteRepository {
@@ -26,7 +27,12 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 
     @Override
     public List<Estudiante> obtenerEstudiantesPorGenero(String genero) {
-        return List.of();
+        List<Estudiante> estudiantesPorGenero = new ArrayList<>();
+        TypedQuery<Estudiante> q = em.createQuery("SELECT e FROM Estudiante e WHERE e.genero=:genero", Estudiante.class);
+        q.setParameter("genero", genero);
+        for(int i =0;i<q.getMaxResults();i++)
+            estudiantesPorGenero.add(q.getSingleResult());
+        return estudiantesPorGenero;
     }
 
     @Override
