@@ -10,8 +10,9 @@ public class Carrera {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_carrera;
-
+    @Column
     private String nombre;
+    @Column
     private Integer duracion;
 
     @OneToMany(mappedBy = "carrera")

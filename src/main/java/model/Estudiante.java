@@ -9,14 +9,21 @@ public class Estudiante {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_estudiante;
-
+    @Column
     private String nombres;
+    @Column
     private String apellido;
+    @Column
     private Integer edad;
+    @Column
     private String genero;
+    @Column
     private String numeroDocumento;
+    @Column
     private String ciudadResidencia;
+    @Column
     private String numeroLibretaUniversitaria;
+    @Column
     private Boolean graduado;
 
     @OneToMany(mappedBy = "estudiante")
