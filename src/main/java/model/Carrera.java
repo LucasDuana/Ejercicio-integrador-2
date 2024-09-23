@@ -25,6 +25,10 @@ public class Carrera {
         this.estudiantes = new ArrayList<>();
     }
 
+    public Carrera() {
+
+    }
+
     public Long getId_carrera() {
         return id_carrera;
     }
