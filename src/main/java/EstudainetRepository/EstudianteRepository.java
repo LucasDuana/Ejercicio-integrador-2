@@ -15,4 +15,5 @@ public interface EstudianteRepository {
     List<Estudiante> obtenerEstudiantesPorGenero(String genero);
     List<Estudiante> obtenerEstudiantesOrdenados(String criterio);
     List<Estudiante> obtenerEstudiantesPorCarrera(Carrera carrera);
+
 }
