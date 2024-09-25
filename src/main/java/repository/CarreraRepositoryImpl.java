@@ -1,11 +1,18 @@
-import CarreraRepository.CarreraRepository;
+package repository;
+
 import model.Carrera;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class CarreraRepositoryImpl implements CarreraRepository {
+public class CarreraRepositoryImpl extends RepositoryImpl<Carrera,Long> implements CarreraRepository {
+
+    public CarreraRepositoryImpl(EntityManager em) {
+        super(Carrera.class,em);
+
+    }
+
     @Override
     public List<Carrera> obtenerCarrerasConEstudiantesInscriptos() {
         EntityManager em = null;

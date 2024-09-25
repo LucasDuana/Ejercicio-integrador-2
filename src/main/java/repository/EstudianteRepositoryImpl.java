@@ -1,6 +1,5 @@
+package repository;
 
-
-import EstudainetRepository.EstudianteRepository;
 import model.Carrera;
 import model.Estudiante;
 import model.EstudianteCarrera;
@@ -9,13 +8,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class EstudianteRepositoryImpl implements EstudianteRepository {
-    private EntityManager em;
+public class EstudianteRepositoryImpl extends RepositoryImpl<Estudiante,Long> implements EstudianteRepository {
 
     public EstudianteRepositoryImpl(EntityManager em) {
-        this.em = em;
+        super(Estudiante.class,em);
     }
-
+/*
     @Override
     public List<Estudiante> obtenerEstudiantes() {
         TypedQuery<Estudiante> q = em.createQuery("SELECT e FROM Estudiante e", Estudiante.class);
@@ -34,7 +32,7 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
             }
             throw e;
         }
-    }
+    }*/
 
     @Override
     public List<Carrera> obtenerCarrerasConEstudiantesInscriptos() {

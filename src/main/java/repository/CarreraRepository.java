@@ -1,4 +1,4 @@
-package CarreraRepository;
+package repository;
 
 import model.Carrera;
 
