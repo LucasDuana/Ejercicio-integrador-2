@@ -6,7 +6,7 @@ import model.Estudiante;
 import java.util.List;
 
 public interface EstudianteRepository extends Repository<Estudiante,Long> {
-    void matricularEstudianteEnCarrera(Estudiante estudiante, Carrera carrera);
+    void matricularEstudianteEnCarrera(Long estudianteId, Long carreraId);
     //List<Estudiante> obtenerEstudiantes();
     //void darDeAltaEstudiante(Estudiante estudiante);
     List<Carrera> obtenerCarrerasConEstudiantesInscriptos();

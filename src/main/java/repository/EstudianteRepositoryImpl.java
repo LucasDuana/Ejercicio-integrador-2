@@ -46,7 +46,7 @@ public class EstudianteRepositoryImpl extends RepositoryImpl<Estudiante,Long> im
     @Override
     public List<Estudiante> obtenerEstudiantesPorCarreraYCiudad(Carrera carrera, String ciudad) {
         TypedQuery<Estudiante> q = em.createQuery(
-                "SELECT e FROM Estudiante e JOIN EstudianteCarrera ec ON e.id_estudiante = ec.estudiante.id WHERE ec.carrera.id = :carreraId AND e.ciudadResidencia = :ciudad",
+                "SELECT e FROM Estudiante e JOIN EstudianteCarrera ec ON e.estudiante_id = ec.estudiante.id WHERE ec.carrera.id = :carreraId AND e.ciudadResidencia = :ciudad",
                 Estudiante.class
         );
         q.setParameter("carreraId", carrera.getId_carrera());
@@ -69,12 +69,21 @@ public class EstudianteRepositoryImpl extends RepositoryImpl<Estudiante,Long> im
     }
 
     @Override
-    public void matricularEstudianteEnCarrera(Estudiante estudiante, Carrera carrera) {
+    public void matricularEstudianteEnCarrera(Long estudianteId, Long carreraId) {
+
+        Estudiante estudiante = em.find(Estudiante.class, estudianteId);
+        if (estudiante == null) {
+            throw new IllegalArgumentException("Estudiante no encontrado con ID: " + estudianteId);
+        }
+
+        Carrera carrera = em.find(Carrera.class, carreraId);
+        if (carrera == null) {
+            throw new IllegalArgumentException("Carrera no encontrada con ID: " + carreraId);
+        }
+
         try {
             em.getTransaction().begin();
-            EstudianteCarrera estudianteCarrera = new EstudianteCarrera();
-            estudianteCarrera.setEstudiante(estudiante);
-            estudianteCarrera.setCarrera(carrera);
+            EstudianteCarrera estudianteCarrera = new EstudianteCarrera(carrera, estudiante);
             em.persist(estudianteCarrera);
             em.getTransaction().commit();
         } catch (Exception e) {
@@ -87,7 +96,7 @@ public class EstudianteRepositoryImpl extends RepositoryImpl<Estudiante,Long> im
 
     @Override
     public List<Estudiante> obtenerEstudiantesPorCarrera(Carrera carrera) {
-        TypedQuery<Estudiante> q = em.createQuery("SELECT e FROM Estudiante e JOIN EstudianteCarrera ec ON e.id_estudiante = ec.estudiante.id WHERE ec.carrera.id = :carreraId", Estudiante.class);
+        TypedQuery<Estudiante> q = em.createQuery("SELECT e FROM Estudiante e JOIN EstudianteCarrera ec ON e.estudiante_id = ec.estudiante.id WHERE ec.carrera.id = :carreraId", Estudiante.class);
         q.setParameter("carreraId", carrera.getId_carrera());
         return q.getResultList();
     }
