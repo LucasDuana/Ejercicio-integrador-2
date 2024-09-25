@@ -23,6 +23,13 @@ public class EstudianteCarrera {
     private Integer antiguedad;
     private Boolean graduadoEnCarrera;
 
+    public EstudianteCarrera(Carrera carrera, Estudiante estudiante) {
+        this.carrera = carrera;
+        this.estudiante = estudiante;
+        this.id = new EstudianteCarreraId(estudiante.getId_estudiante(), carrera.getId_carrera());
+
+    }
+
     public EstudianteCarrera() {
 
     }
