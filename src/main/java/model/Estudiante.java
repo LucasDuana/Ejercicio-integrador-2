@@ -9,7 +9,7 @@ public class Estudiante {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_estudiante;
+    private Long estudiante_id;
     @Column
     private String nombres;
     @Column
@@ -28,7 +28,7 @@ public class Estudiante {
     private Boolean graduado;
 
     @OneToMany(mappedBy = "estudiante")
-    private List<Carrera> carreras;
+    private List<EstudianteCarrera> carreras;
 
     public Estudiante() {
 
@@ -43,11 +43,11 @@ public class Estudiante {
         this.ciudadResidencia = ciudadResidencia;
         this.numeroLibretaUniversitaria = numeroLibretaUniversitaria;
         this.graduado = graduado;
-        this.carreras = new ArrayList<Carrera>();
+        this.carreras = new ArrayList<EstudianteCarrera>();
     }
 
     public Long getId_estudiante() {
-        return id_estudiante;
+        return estudiante_id;
     }
 
 
@@ -115,11 +115,11 @@ public class Estudiante {
         this.graduado = graduado;
     }
 
-    public void addCareraa(Carrera c){
+    public void addCareraa(EstudianteCarrera c){
         this.carreras.add(c);
     }
 
-    public List<Carrera> getCarreras(){
+    public List<EstudianteCarrera> getCarreras(){
         return new ArrayList<>(carreras);
     }
 
