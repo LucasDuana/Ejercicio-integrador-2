@@ -94,4 +94,18 @@ public class EstudianteDTO {
     public void setGraduado(Boolean graduado) {
         this.graduado = graduado;
     }
+
+    @Override
+    public String toString() {
+        return "EstudianteDTO{" +
+                "nombres='" + nombres + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", edad=" + edad +
+                ", genero='" + genero + '\'' +
+                ", numeroDocumento='" + numeroDocumento + '\'' +
+                ", ciudadResidencia='" + ciudadResidencia + '\'' +
+                ", numeroLibretaUniversitaria='" + numeroLibretaUniversitaria + '\'' +
+                ", graduado=" + graduado +
+                '}';
+    }
 }
