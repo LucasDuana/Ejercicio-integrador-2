@@ -18,8 +18,7 @@ public class Carrera {
     @OneToMany(mappedBy = "carrera")
     private List<EstudianteCarrera> estudiantes;
 
-    public Carrera(Long id_carrera, String nombre, Integer duracion) {
-        this.carrera_id = id_carrera;
+    public Carrera(String nombre, Integer duracion) {
         this.nombre = nombre;
         this.duracion = duracion;
         this.estudiantes = new ArrayList<>();
