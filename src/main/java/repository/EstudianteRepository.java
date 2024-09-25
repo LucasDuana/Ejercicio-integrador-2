@@ -1,5 +1,6 @@
 package repository;
 
+import DTO.EstudianteDTO;
 import model.Carrera;
 import model.Estudiante;
 
@@ -9,10 +10,9 @@ public interface EstudianteRepository extends Repository<Estudiante,Long> {
     void matricularEstudianteEnCarrera(Long estudianteId, Long carreraId);
     //List<Estudiante> obtenerEstudiantes();
     //void darDeAltaEstudiante(Estudiante estudiante);
-    List<Carrera> obtenerCarrerasConEstudiantesInscriptos();
-    List<Estudiante> obtenerEstudiantesPorCarreraYCiudad(Carrera carrera, String ciudad);
-    Estudiante obtenerEstudianteLibreta(String libreta);
-    List<Estudiante> obtenerEstudiantesPorGenero(String genero);
-    List<Estudiante> obtenerEstudiantesOrdenados(String criterio);
-    List<Estudiante> obtenerEstudiantesPorCarrera(Carrera carrera);
+    List<EstudianteDTO> obtenerEstudiantesPorCarreraYCiudad(Long idCarrera, String ciudad);
+    EstudianteDTO obtenerEstudianteLibreta(String libreta);
+    List<EstudianteDTO> obtenerEstudiantesPorGenero(String genero);
+    List<EstudianteDTO> obtenerEstudiantesOrdenados(String criterio);
+    List<EstudianteDTO> obtenerEstudiantesPorCarrera(Long id);
 }

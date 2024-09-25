@@ -1,11 +1,13 @@
 package repository;
 
+import DTO.EstudianteDTO;
 import model.Carrera;
 import model.Estudiante;
 import model.EstudianteCarrera;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EstudianteRepositoryImpl extends RepositoryImpl<Estudiante,Long> implements EstudianteRepository {
@@ -13,59 +15,42 @@ public class EstudianteRepositoryImpl extends RepositoryImpl<Estudiante,Long> im
     public EstudianteRepositoryImpl(EntityManager em) {
         super(Estudiante.class,em);
     }
-/*
-    @Override
-    public List<Estudiante> obtenerEstudiantes() {
-        TypedQuery<Estudiante> q = em.createQuery("SELECT e FROM Estudiante e", Estudiante.class);
-        return q.getResultList();
-    }
 
-    @Override
-    public void darDeAltaEstudiante(Estudiante estudiante) {
-        try {
-            em.getTransaction().begin();
-            em.persist(estudiante);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
-            }
-            throw e;
+    private List<EstudianteDTO> toEstudiantesDTO(List<Estudiante> estudiantes){
+        ArrayList<EstudianteDTO> conversion = new ArrayList<>();
+        for(Estudiante e: estudiantes){
+            EstudianteDTO estudianteDTO = new EstudianteDTO(e);
+            conversion.add(estudianteDTO);
         }
-    }*/
 
-    @Override
-    public List<Carrera> obtenerCarrerasConEstudiantesInscriptos() {
-        TypedQuery<Carrera> query = em.createQuery(
-                "SELECT c FROM Carrera c JOIN EstudianteCarrera ec ON c.id = ec.carrera.id GROUP BY c ORDER BY COUNT(ec) DESC",
-                Carrera.class
-        );
-        return query.getResultList();
+        return conversion;
     }
 
+
     @Override
-    public List<Estudiante> obtenerEstudiantesPorCarreraYCiudad(Carrera carrera, String ciudad) {
+    public List<EstudianteDTO> obtenerEstudiantesPorCarreraYCiudad(Long idCarrera, String ciudad) {
         TypedQuery<Estudiante> q = em.createQuery(
                 "SELECT e FROM Estudiante e JOIN EstudianteCarrera ec ON e.estudiante_id = ec.estudiante.id WHERE ec.carrera.id = :carreraId AND e.ciudadResidencia = :ciudad",
                 Estudiante.class
         );
-        q.setParameter("carreraId", carrera.getId_carrera());
+        q.setParameter("carreraId", idCarrera);
         q.setParameter("ciudad", ciudad);
-        return q.getResultList();
+        return this.toEstudiantesDTO(q.getResultList());
     }
 
     @Override
-    public Estudiante obtenerEstudianteLibreta(String libreta) {
+    public EstudianteDTO obtenerEstudianteLibreta(String libreta) {
         TypedQuery<Estudiante> q = em.createQuery("SELECT e FROM Estudiante e WHERE e.numeroLibretaUniversitaria=:libreta", Estudiante.class);
         q.setParameter("libreta", libreta);
-        return q.getSingleResult();
+        Estudiante buscado = q.getSingleResult();
+        return new EstudianteDTO(buscado);
     }
 
     @Override
-    public List<Estudiante> obtenerEstudiantesPorGenero(String genero) {
+    public List<EstudianteDTO> obtenerEstudiantesPorGenero(String genero) {
         TypedQuery<Estudiante> q = em.createQuery("SELECT e FROM Estudiante e WHERE e.genero=:genero", Estudiante.class);
         q.setParameter("genero", genero);
-        return q.getResultList();
+        return this.toEstudiantesDTO(q.getResultList());
     }
 
     @Override
@@ -95,14 +80,14 @@ public class EstudianteRepositoryImpl extends RepositoryImpl<Estudiante,Long> im
     }
 
     @Override
-    public List<Estudiante> obtenerEstudiantesPorCarrera(Carrera carrera) {
-        TypedQuery<Estudiante> q = em.createQuery("SELECT e FROM Estudiante e JOIN EstudianteCarrera ec ON e.estudiante_id = ec.estudiante.id WHERE ec.carrera.id = :carreraId", Estudiante.class);
-        q.setParameter("carreraId", carrera.getId_carrera());
-        return q.getResultList();
+    public List<EstudianteDTO> obtenerEstudiantesPorCarrera(Long id) {
+        TypedQuery<Estudiante> q = em.createQuery("SELECT e FROM Estudiante e JOIN EstudianteCarrera ec ON e.estudiante_id = ec.id.estudianteId WHERE ec.carrera.id = :carreraId", Estudiante.class);
+        q.setParameter("carreraId", id);
+        return this.toEstudiantesDTO(q.getResultList());
     }
 
     @Override
-    public List<Estudiante> obtenerEstudiantesOrdenados(String criterio) {
+    public List<EstudianteDTO> obtenerEstudiantesOrdenados(String criterio) {
         TypedQuery<Estudiante> q;
         if (criterio.equalsIgnoreCase("apellido")) {
             q = em.createQuery("SELECT e FROM Estudiante e ORDER BY e.apellido", Estudiante.class);
@@ -112,6 +97,6 @@ public class EstudianteRepositoryImpl extends RepositoryImpl<Estudiante,Long> im
             // traer sin orden
             q = em.createQuery("SELECT e FROM Estudiante e", Estudiante.class);
         }
-        return q.getResultList();
+        return this.toEstudiantesDTO(q.getResultList());
     }
 }
