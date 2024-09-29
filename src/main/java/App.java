@@ -1,3 +1,4 @@
+import DTO.ReporteDTO;
 import helper.EntityManagerJPA;
 import model.Carrera;
 import model.Estudiante;
@@ -8,6 +9,7 @@ import repository.RepositoryFactory;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class App 
 {
@@ -38,6 +40,16 @@ public class App
         System.out.println(estudianteRepo.obtenerEstudiantesPorCarrera(1L));
         System.out.println(estudianteRepo.obtenerEstudiantesPorCarreraYCiudad(2L,"Tandil"));
         System.out.println(carreraRepo.obtenerCarrerasConEstudiantesInscriptos());
+
+
+
+        List<ReporteDTO> reporte = carreraRepo.generarReporteCarreras();
+
+        System.out.println("------------------EGRESADOS Y GRADUADOS POR AÑO------------------------");
+
+        for (ReporteDTO dto : reporte) {
+            System.out.println(dto.toString());
+        }
 
 
 
