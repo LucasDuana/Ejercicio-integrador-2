@@ -1,6 +1,7 @@
 package repository;
 
 import DTO.CarreraDTO;
+import DTO.ReporteDTO;
 import model.Carrera;
 
 import javax.persistence.EntityManager;
@@ -35,4 +36,43 @@ public class CarreraRepositoryImpl extends RepositoryImpl<Carrera,Long> implemen
         return this.toCarrerasDTO(query.getResultList());
     }
 
+
+    public List<ReporteDTO> generarReporteCarreras() {
+        TypedQuery<Object[]> query = em.createQuery(
+                "SELECT c.nombre, ec.antiguedad, e.nombres, e.apellido " +
+                        "FROM EstudianteCarrera ec " +
+                        "JOIN ec.carrera c " +
+                        "JOIN ec.estudiante e " +
+                        "ORDER BY c.nombre ASC, ec.antiguedad ASC",
+                Object[].class
+        );
+
+        List<Object[]> resultados = query.getResultList();
+        List<ReporteDTO> reporte = new ArrayList<>();
+        ReporteDTO dtoActual = null;
+        String carreraActual = "";
+        int antiguedadActual = -1;
+
+        for (Object[] fila : resultados) {
+            String nombreCarrera = (String) fila[0];
+            int antiguedad = (int) fila[1];
+            String nombreEstudiante = (String) fila[2];
+            String apellidoEstudiante = (String) fila[3];
+
+            if (!nombreCarrera.equals(carreraActual) || antiguedad != antiguedadActual) {
+                dtoActual = new ReporteDTO(nombreCarrera, antiguedad);
+                reporte.add(dtoActual);
+                carreraActual = nombreCarrera;
+                antiguedadActual = antiguedad;
+            }
+
+            assert dtoActual != null;
+            dtoActual.addEstudiante(nombreEstudiante, apellidoEstudiante);
+        }
+
+        return reporte;
+    }
 }
+
+
+
