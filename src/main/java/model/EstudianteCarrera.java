@@ -1,6 +1,7 @@
 package model;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -26,6 +27,8 @@ public class EstudianteCarrera {
     public EstudianteCarrera(Carrera carrera, Estudiante estudiante) {
         this.carrera = carrera;
         this.estudiante = estudiante;
+        this.antiguedad = LocalDate.now().getYear();
+        this.graduadoEnCarrera = this.estudiante.getGraduado();
         this.id = new EstudianteCarreraId(estudiante.getId_estudiante(), carrera.getId_carrera());
 
     }
