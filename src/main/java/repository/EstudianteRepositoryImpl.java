@@ -12,8 +12,17 @@ import java.util.List;
 
 public class EstudianteRepositoryImpl extends RepositoryImpl<Estudiante,Long> implements EstudianteRepository {
 
-    public EstudianteRepositoryImpl(EntityManager em) {
+    private static EstudianteRepositoryImpl  instancia;
+
+    private EstudianteRepositoryImpl(EntityManager em) {
         super(Estudiante.class,em);
+    }
+
+    public static EstudianteRepositoryImpl getInstance(EntityManager em) {
+        if (instancia == null) {
+            instancia = new EstudianteRepositoryImpl(em);
+        }
+        return instancia;
     }
 
     private List<EstudianteDTO> toEstudiantesDTO(List<Estudiante> estudiantes){

@@ -11,9 +11,18 @@ import java.util.List;
 
 public class CarreraRepositoryImpl extends RepositoryImpl<Carrera,Long> implements CarreraRepository {
 
-    public CarreraRepositoryImpl(EntityManager em) {
+    private static CarreraRepositoryImpl instancia;
+
+    private CarreraRepositoryImpl(EntityManager em) {
         super(Carrera.class,em);
 
+    }
+
+    public static CarreraRepositoryImpl getInstancia(EntityManager em){
+        if(instancia == null)
+            return new CarreraRepositoryImpl(em);
+        else
+            return instancia;
     }
 
     private List<CarreraDTO> toCarrerasDTO(List<Carrera> carreras){
