@@ -26,12 +26,12 @@ public class App
         Carrera c1 = new Carrera("Tudai", 2);
         Carrera c2 = new Carrera("Profesor de filosofia", 4);
 
-        /**estudianteRepo.save(e1);
+        /*estudianteRepo.save(e1);
         carreraRepo.save(c1);
         estudianteRepo.matricularEstudianteEnCarrera(1L,1L);*/
 
-        //estudianteRepo.save(e2);
-        //carreraRepo.save(c2);
+        /*estudianteRepo.save(e2);
+        carreraRepo.save(c2);*/
 
         System.out.println(estudianteRepo.obtenerEstudiantesPorGenero("Mujer"));
         System.out.println(estudianteRepo.obtenerEstudianteLibreta("254136"));

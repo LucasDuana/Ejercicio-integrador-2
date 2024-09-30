@@ -3,6 +3,7 @@ package DTO;
 import model.Estudiante;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ReporteDTO {
@@ -10,6 +11,7 @@ public class ReporteDTO {
     private String nombreCarrera;
     private int antiguedad;
     private List<String> estudiante;
+    private HashMap<Integer,>
 
     public ReporteDTO(String nombreCarrera, int antiguedad) {
         this.nombreCarrera = nombreCarrera;
@@ -41,12 +43,10 @@ public class ReporteDTO {
         return new ArrayList<>(this.estudiante);
     }
 
+
     @Override
     public String toString() {
         return "Reporte de carrera {" +
-                "nombreCarrera: '" + nombreCarrera + '\'' +
-                ", antiguedad: " + antiguedad +
-                ", estudiante: " + estudiante +
-                '}';
+                "nombreCarrera: '" + nombreCarrera + '\'' + "Cantidad de ingresantes"+"}";
     }
 }

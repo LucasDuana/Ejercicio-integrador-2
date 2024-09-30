@@ -45,10 +45,17 @@ public class CarreraRepositoryImpl extends RepositoryImpl<Carrera,Long> implemen
         return this.toCarrerasDTO(query.getResultList());
     }
 
+    @Override
+    public int obtenerCantidadDeInscriptos() {
+        TypedQuery<Integer> query = em.createQuery("SELECT COUNT(ec) FROM EstudianteCarrera ec",Integer.class );
+        Integer count = query.getSingleResult();
+        return count!=null ?count.intValue():0;
+    }
+
 
     public List<ReporteDTO> generarReporteCarreras() {
         TypedQuery<Object[]> query = em.createQuery(
-                "SELECT c.nombre, ec.antiguedad, e.nombres, e.apellido " +
+                "SELECT c.nombre, ec.antiguedad, COUNT(ec)" +
                         "FROM EstudianteCarrera ec " +
                         "JOIN ec.carrera c " +
                         "JOIN ec.estudiante e " +

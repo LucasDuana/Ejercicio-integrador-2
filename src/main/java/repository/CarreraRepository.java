@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface CarreraRepository {
     List<CarreraDTO> obtenerCarrerasConEstudiantesInscriptos();
+    int obtenerCantidadDeInscriptos();
 }
