@@ -9,7 +9,7 @@ public class Carrera {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_carrera;
+    private Long carrera_id;
     @Column
     private String nombre;
     @Column
@@ -18,8 +18,7 @@ public class Carrera {
     @OneToMany(mappedBy = "carrera")
     private List<EstudianteCarrera> estudiantes;
 
-    public Carrera(Long id_carrera, String nombre, Integer duracion) {
-        this.id_carrera = id_carrera;
+    public Carrera(String nombre, Integer duracion) {
         this.nombre = nombre;
         this.duracion = duracion;
         this.estudiantes = new ArrayList<>();
@@ -30,7 +29,7 @@ public class Carrera {
     }
 
     public Long getId_carrera() {
-        return id_carrera;
+        return carrera_id;
     }
 
 

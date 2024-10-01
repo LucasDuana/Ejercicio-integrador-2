@@ -1,55 +1,35 @@
-package model;
+package DTO;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import model.Estudiante;
 
-@Entity
-public class Estudiante {
+public class EstudianteDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long estudiante_id;
-    @Column
     private String nombres;
-    @Column
+
     private String apellido;
-    @Column
+
     private Integer edad;
-    @Column
+
     private String genero;
-    @Column
+
     private String numeroDocumento;
-    @Column
+
     private String ciudadResidencia;
-    @Column
+
     private String numeroLibretaUniversitaria;
-    @Column
+
     private Boolean graduado;
 
-    @OneToMany(mappedBy = "estudiante")
-    private List<EstudianteCarrera> carreras;
-
-    public Estudiante() {
-
+    public EstudianteDTO(Estudiante estudiante) {
+        this.nombres = estudiante.getNombres();
+        this.apellido = estudiante.getApellido();
+        this.edad = estudiante.getEdad();
+        this.genero = estudiante.getGenero();
+        this.numeroDocumento = estudiante.getNumeroDocumento();
+        this.ciudadResidencia = estudiante.getCiudadResidencia();
+        this.numeroLibretaUniversitaria = estudiante.getNumeroLibretaUniversitaria();
+        this.graduado = estudiante.getGraduado();
     }
-
-    public Estudiante(String nombres, String apellido, Integer edad, String genero, String numeroDocumento, String ciudadResidencia, String numeroLibretaUniversitaria, Boolean graduado) {
-        this.nombres = nombres;
-        this.apellido = apellido;
-        this.edad = edad;
-        this.genero = genero;
-        this.numeroDocumento = numeroDocumento;
-        this.ciudadResidencia = ciudadResidencia;
-        this.numeroLibretaUniversitaria = numeroLibretaUniversitaria;
-        this.graduado = graduado;
-        this.carreras = new ArrayList<EstudianteCarrera>();
-    }
-
-    public Long getId_estudiante() {
-        return estudiante_id;
-    }
-
 
     public String getNombres() {
         return nombres;
@@ -115,13 +95,17 @@ public class Estudiante {
         this.graduado = graduado;
     }
 
-    public void addCareraa(EstudianteCarrera c){
-        this.carreras.add(c);
+    @Override
+    public String toString() {
+        return "EstudianteDTO{" +
+                "nombres='" + nombres + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", edad=" + edad +
+                ", genero='" + genero + '\'' +
+                ", numeroDocumento='" + numeroDocumento + '\'' +
+                ", ciudadResidencia='" + ciudadResidencia + '\'' +
+                ", numeroLibretaUniversitaria='" + numeroLibretaUniversitaria + '\'' +
+                ", graduado=" + graduado +
+                '}';
     }
-
-    public List<EstudianteCarrera> getCarreras(){
-        return new ArrayList<>(carreras);
-    }
-
-
 }

@@ -29,26 +29,26 @@ public class App
         Carrera c1 = new Carrera("Tudai", 2);
         Carrera c2 = new Carrera("Profesor de filosofia", 4);
 
-        //estudianteRepo.save(e1);
-        //carreraRepo.save(c1);
-        //estudianteRepo.matricularEstudianteEnCarrera(1L,1L);
+        /*estudianteRepo.save(e1);
+        carreraRepo.save(c1);
+        estudianteRepo.matricularEstudianteEnCarrera(1L,1L);*/
 
-        //estudianteRepo.save(e2);
-        //carreraRepo.save(c2);
+        /*estudianteRepo.save(e2);
+        carreraRepo.save(c2);
         estudianteRepo.save(e3);
         estudianteRepo.save(e4);
-        estudianteRepo.save(e5);
+        estudianteRepo.save(e5);*/
 
 
-        //System.out.println(estudianteRepo.obtenerEstudiantesPorGenero("Mujer"));
-        //System.out.println(estudianteRepo.obtenerEstudianteLibreta("254136"));
-        estudianteRepo.matricularEstudianteEnCarrera(2L,3L);
-        estudianteRepo.matricularEstudianteEnCarrera(6L,3L);
-        estudianteRepo.matricularEstudianteEnCarrera(3L,1L);
-        estudianteRepo.matricularEstudianteEnCarrera(4L,1L);
-        estudianteRepo.matricularEstudianteEnCarrera(5L,3L);
-        System.out.println(estudianteRepo.obtenerEstudiantesPorCarrera(3L));
-        System.out.println(estudianteRepo.obtenerEstudiantesPorCarreraYCiudad(3L,"Tandil"));
+        System.out.println(estudianteRepo.obtenerEstudiantesPorGenero("Mujer"));
+        System.out.println(estudianteRepo.obtenerEstudianteLibreta("254136"));
+        //estudianteRepo.matricularEstudianteEnCarrera(2L,2L);
+        //estudianteRepo.matricularEstudianteEnCarrera(6L,2L);
+        //estudianteRepo.matricularEstudianteEnCarrera(3L,1L);
+        //estudianteRepo.matricularEstudianteEnCarrera(4L,1L);
+        //estudianteRepo.matricularEstudianteEnCarrera(5L,2L);
+        System.out.println(estudianteRepo.obtenerEstudiantesPorCarrera(1L));
+        System.out.println(estudianteRepo.obtenerEstudiantesPorCarreraYCiudad(2L,"Tandil"));
         System.out.println(carreraRepo.obtenerCarrerasConEstudiantesInscriptos());
 
 
