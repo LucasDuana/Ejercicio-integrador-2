@@ -75,6 +75,17 @@ public class EstudianteRepositoryImpl extends RepositoryImpl<Estudiante,Long> im
             throw new IllegalArgumentException("Carrera no encontrada con ID: " + carreraId);
         }
 
+        TypedQuery<EstudianteCarrera> query = em.createQuery(
+                "SELECT ec FROM EstudianteCarrera ec WHERE ec.estudiante.id = :estudianteId AND ec.carrera.id = :carreraId",
+                EstudianteCarrera.class
+        );
+        query.setParameter("estudianteId", estudianteId);
+        query.setParameter("carreraId", carreraId);
+
+        if (!query.getResultList().isEmpty()) {
+            throw new IllegalStateException("El estudiante ya está matriculado en esta carrera.");
+        }
+
         try {
             em.getTransaction().begin();
             EstudianteCarrera estudianteCarrera = new EstudianteCarrera(carrera, estudiante);
