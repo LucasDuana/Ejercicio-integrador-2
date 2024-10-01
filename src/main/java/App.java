@@ -5,6 +5,7 @@ import model.Estudiante;
 import repository.CarreraRepositoryImpl;
 import repository.EstudianteRepositoryImpl;
 import repository.RepositoryFactory;
+import util.LoadCsv;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -13,55 +14,41 @@ import java.util.List;
 
 public class App 
 {
-    public static void main( String[] args )
-    {
+    public static void main( String[] args ) throws Exception {
         EntityManager em = EntityManagerJPA.getEntityManager();
 
         RepositoryFactory rf = new RepositoryFactory();
         EstudianteRepositoryImpl estudianteRepo= rf.getEstudianteRepository(em);
         CarreraRepositoryImpl carreraRepo= rf.getCarreraRepository(em);
+        LoadCsv cargador = new LoadCsv(rf);
+        /*cargador.leerEstudiantes();
+        cargador.leerCarreras();
+        cargador.leerEstudiantesCarreras();*/
 
-        Estudiante e1 = new Estudiante("Lucas", "Duana", 24, "Hombre", "42630319", "Rauch","Numero de libreta del Duana", false);
-        Estudiante e2 = new Estudiante ("Agustin", "Carretto", 24, "Hombre","41235632","Gesell", "254136", false);
-        Estudiante e3 = new Estudiante("María", "Fernández", 22, "Mujer", "47856321", "Buenos Aires", "Libreta 7890", true);
-        Estudiante e4 = new Estudiante("Pedro", "Gómez", 25, "Hombre", "23456789", "Córdoba", "Libreta 1234", false);
-        Estudiante e5 = new Estudiante("Sofía", "López", 23, "Mujer", "34567890", "Mendoza", "Libreta 4567", true);
-        Carrera c1 = new Carrera("Tudai", 2);
-        Carrera c2 = new Carrera("Profesor de filosofia", 4);
-
-        /*estudianteRepo.save(e1);
-        carreraRepo.save(c1);
-        estudianteRepo.matricularEstudianteEnCarrera(1L,1L);*/
-
-        /*estudianteRepo.save(e2);
-        carreraRepo.save(c2);
-        estudianteRepo.save(e3);
-        estudianteRepo.save(e4);
-        estudianteRepo.save(e5);*/
-
-
-        System.out.println(estudianteRepo.obtenerEstudiantesPorGenero("Mujer"));
-        System.out.println(estudianteRepo.obtenerEstudianteLibreta("254136"));
-        //estudianteRepo.matricularEstudianteEnCarrera(2L,2L);
-        //estudianteRepo.matricularEstudianteEnCarrera(6L,2L);
-        //estudianteRepo.matricularEstudianteEnCarrera(3L,1L);
-        //estudianteRepo.matricularEstudianteEnCarrera(4L,1L);
-        //estudianteRepo.matricularEstudianteEnCarrera(5L,2L);
-        System.out.println(estudianteRepo.obtenerEstudiantesPorCarrera(1L));
-        System.out.println(estudianteRepo.obtenerEstudiantesPorCarreraYCiudad(2L,"Tandil"));
-        System.out.println(carreraRepo.obtenerCarrerasConEstudiantesInscriptos());
+        /*
+        * a) dar de alta un estudiante
+b) matricular un estudiante en una carrera
 
 
 
-        List<ReporteDTO> reporte = carreraRepo.generarReporteCarreras();
-
-        System.out.println("------------------EGRESADOS Y GRADUADOS POR AÑO------------------------");
-
-        for (ReporteDTO dto : reporte) {
-            System.out.println(dto.toString());
-        }
 
 
+        * */
+
+        //d) recuperar un estudiante, en base a su número de libreta universitaria.
+        //System.out.println(estudianteRepo.obtenerEstudianteLibreta("61607"));
+
+        //e) recuperar todos los estudiantes, en base a su género.
+        //System.out.println(estudianteRepo.obtenerEstudiantesPorGenero("Polygender"));
+
+        //c) recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple.
+        //System.out.println(estudianteRepo.obtenerEstudiantesOrdenados("apellido"));
+
+        //f) recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos.
+        //System.out.println(carreraRepo.obtenerCarrerasConEstudiantesInscriptos());
+
+        //g) recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia.
+        System.out.println(estudianteRepo.obtenerEstudiantesPorCarreraYCiudad(15L,"Jiaoyuan"));
 
 
 

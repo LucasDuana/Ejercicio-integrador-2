@@ -1,45 +1,42 @@
 package DTO;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ReporteDTO {
 
     private String nombreCarrera;
-    private int antiguedad;
+    private int anio;
     private long graduados;
-    private long noGraduados;
+    private long inscriptos;
 
-    public ReporteDTO(String nombreCarrera, int antiguedad, long graduados, long noGraduados) {
+    public ReporteDTO(String nombreCarrera, int anio, long graduados, long inscriptos) {
         this.nombreCarrera = nombreCarrera;
-        this.antiguedad = antiguedad;
+        this.anio = anio;
         this.graduados = graduados;
-        this.noGraduados = noGraduados;
+        this.inscriptos = inscriptos;
     }
 
     public String getNombreCarrera() {
         return nombreCarrera;
     }
 
-    public int getAntiguedad() {
-        return antiguedad;
+    public int getAnio() {
+        return anio;
     }
 
     public long getGraduados() {
         return graduados;
     }
 
-    public long getNoGraduados() {
-        return noGraduados;
+    public long getInscriptos() {
+        return inscriptos;
     }
 
     @Override
     public String toString() {
         return "Reporte de carrera {" +
                 "nombreCarrera: '" + nombreCarrera + '\'' +
-                ", antiguedad: " + antiguedad +
+                ", año: " + anio +
                 ", graduados: " + graduados +
-                ", noGraduados: " + noGraduados +
+                ", inscriptos: " + inscriptos +
                 '}';
     }
 }

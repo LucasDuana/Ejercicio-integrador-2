@@ -5,37 +5,46 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "EstudianteCarrera", uniqueConstraints = @UniqueConstraint(columnNames = { "estudiante_id", "carrera_id" }))
+
 public class EstudianteCarrera {
 
-    @EmbeddedId
-    private EstudianteCarreraId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
-    @MapsId("estudianteId")
-    @JoinColumn(name = "estudiante_id")
+    @JoinColumn(name = "dni")
     private Estudiante estudiante;
 
     @ManyToOne
-    @MapsId("carreraId")
     @JoinColumn(name = "carrera_id")
     private Carrera carrera;
 
-    private Integer antiguedad;
-    private Boolean graduadoEnCarrera;
+    private Integer inscripcion;
 
-    public EstudianteCarrera(Carrera carrera, Estudiante estudiante) {
+    private Integer graduacion;
+
+    private Integer antiguedad;
+
+
+    public EstudianteCarrera(Long id,Carrera carrera, Estudiante estudiante, Integer inscripcion, Integer graduacion, Integer antiguedad) {
         this.carrera = carrera;
         this.estudiante = estudiante;
-        this.antiguedad = LocalDate.now().getYear();
-        this.graduadoEnCarrera = this.estudiante.getGraduado();
-        this.id = new EstudianteCarreraId(estudiante.getId_estudiante(), carrera.getId_carrera());
+        this.inscripcion = inscripcion;
+        this.antiguedad = antiguedad;
+        this.graduacion = graduacion;
+
 
     }
 
     public EstudianteCarrera() {
 
     }
+
+    public Long getId() {
+        return id;
+    }
+
 
     public Estudiante getEstudiante() {
         return estudiante;
@@ -51,5 +60,29 @@ public class EstudianteCarrera {
 
     public void setCarrera(Carrera carrera) {
         this.carrera = carrera;
+    }
+
+    public Integer getInscripcion() {
+        return inscripcion;
+    }
+
+    public void setInscripcion(Integer inscripcion) {
+        this.inscripcion = inscripcion;
+    }
+
+    public Integer getGraduacion() {
+        return graduacion;
+    }
+
+    public void setGraduacion(Integer graduacion) {
+        this.graduacion = graduacion;
+    }
+
+    public Integer getAntiguedad() {
+        return antiguedad;
+    }
+
+    public void setAntiguedad(Integer antiguedad) {
+        this.antiguedad = antiguedad;
     }
 }

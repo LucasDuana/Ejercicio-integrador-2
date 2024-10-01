@@ -4,21 +4,23 @@ import model.Carrera;
 
 public class CarreraDTO {
 
-    private String nombre;
+    private String carrera;
 
     private Integer duracion;
 
+    private int cantidadInscriptos;
+
     public CarreraDTO(Carrera carrera) {
-        this.nombre = carrera.getNombre();
+        this.carrera = carrera.getCarrera();
         this.duracion = carrera.getDuracion();
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getCarrera() {
+        return carrera;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setCarrera(String nombre) {
+        this.carrera = carrera;
     }
 
     public Integer getDuracion() {
@@ -32,7 +34,7 @@ public class CarreraDTO {
     @Override
     public String toString() {
         return "CarreraDTO{" +
-                "nombre='" + nombre + '\'' +
+                "nombre='" + carrera + '\'' +
                 ", duracion=" + duracion +
                 '}';
     }

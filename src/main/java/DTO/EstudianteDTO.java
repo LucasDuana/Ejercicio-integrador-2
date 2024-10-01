@@ -4,7 +4,7 @@ import model.Estudiante;
 
 public class EstudianteDTO {
 
-    private String nombres;
+    private String nombre;
 
     private String apellido;
 
@@ -12,31 +12,26 @@ public class EstudianteDTO {
 
     private String genero;
 
-    private String numeroDocumento;
+    private String ciudad;
 
-    private String ciudadResidencia;
+    private String lu;
 
-    private String numeroLibretaUniversitaria;
-
-    private Boolean graduado;
 
     public EstudianteDTO(Estudiante estudiante) {
-        this.nombres = estudiante.getNombres();
+        this.nombre = estudiante.getNombre();
         this.apellido = estudiante.getApellido();
         this.edad = estudiante.getEdad();
         this.genero = estudiante.getGenero();
-        this.numeroDocumento = estudiante.getNumeroDocumento();
-        this.ciudadResidencia = estudiante.getCiudadResidencia();
-        this.numeroLibretaUniversitaria = estudiante.getNumeroLibretaUniversitaria();
-        this.graduado = estudiante.getGraduado();
+        this.ciudad= estudiante.getCiudad();
+        this.lu = estudiante.getLu();
     }
 
-    public String getNombres() {
-        return nombres;
+    public String getNombre() {
+        return nombre;
     }
 
     public void setNombres(String nombres) {
-        this.nombres = nombres;
+        this.nombre = nombres;
     }
 
     public String getApellido() {
@@ -63,49 +58,32 @@ public class EstudianteDTO {
         this.genero = genero;
     }
 
-    public String getNumeroDocumento() {
-        return numeroDocumento;
+
+    public String getCiudad() {
+        return ciudad;
     }
 
-    public void setNumeroDocumento(String numeroDocumento) {
-        this.numeroDocumento = numeroDocumento;
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
     }
 
-    public String getCiudadResidencia() {
-        return ciudadResidencia;
+    public String getLu() {
+        return lu;
     }
 
-    public void setCiudadResidencia(String ciudadResidencia) {
-        this.ciudadResidencia = ciudadResidencia;
-    }
-
-    public String getNumeroLibretaUniversitaria() {
-        return numeroLibretaUniversitaria;
-    }
-
-    public void setNumeroLibretaUniversitaria(String numeroLibretaUniversitaria) {
-        this.numeroLibretaUniversitaria = numeroLibretaUniversitaria;
-    }
-
-    public Boolean getGraduado() {
-        return graduado;
-    }
-
-    public void setGraduado(Boolean graduado) {
-        this.graduado = graduado;
+    public void setNumeroLibretaUniversitaria(String lu) {
+        this.lu = lu;
     }
 
     @Override
     public String toString() {
         return "EstudianteDTO{" +
-                "nombres='" + nombres + '\'' +
+                "nombres='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
                 ", edad=" + edad +
                 ", genero='" + genero + '\'' +
-                ", numeroDocumento='" + numeroDocumento + '\'' +
-                ", ciudadResidencia='" + ciudadResidencia + '\'' +
-                ", numeroLibretaUniversitaria='" + numeroLibretaUniversitaria + '\'' +
-                ", graduado=" + graduado +
+                ", ciudad='" + ciudad + '\'' +
+                ", lu='" + lu+  +
                 '}';
     }
 }

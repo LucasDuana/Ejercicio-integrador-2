@@ -35,7 +35,6 @@ public class CarreraRepositoryImpl extends RepositoryImpl<Carrera,Long> implemen
         return conversion;
     }
 
-
     @Override
     public List<CarreraDTO> obtenerCarrerasConEstudiantesInscriptos() {
         TypedQuery<Carrera> query = em.createQuery(
@@ -55,28 +54,26 @@ public class CarreraRepositoryImpl extends RepositoryImpl<Carrera,Long> implemen
 
     public List<ReporteDTO> generarReporteCarreras() {
         TypedQuery<Object[]> query = em.createQuery(
-                "SELECT c.nombre, ec.antiguedad, " +
-                        "SUM(CASE WHEN e.graduado = TRUE THEN 1 ELSE 0 END) AS graduados, " +
-                        "SUM(CASE WHEN e.graduado = FALSE THEN 1 ELSE 0 END) AS noGraduados " +
+                "SELECT c.carrera, YEAR(ec.inscripcion), " +
+                        "SUM(CASE WHEN ec.graduacion IS NOT NULL THEN 1 ELSE 0 END) AS graduados, " +
+                        "COUNT(ec) AS inscriptos " +
                         "FROM EstudianteCarrera ec " +
                         "JOIN ec.carrera c " +
-                        "JOIN ec.estudiante e " +
-                        "GROUP BY c.nombre, ec.antiguedad " +
-                        "ORDER BY c.nombre ASC, ec.antiguedad ASC",
+                        "GROUP BY c.carrera, YEAR(ec.inscripcion) " +
+                        "ORDER BY c.carrera ASC, YEAR(ec.inscripcion) ASC",
                 Object[].class
         );
 
         List<Object[]> resultados = query.getResultList();
         List<ReporteDTO> reporte = new ArrayList<>();
 
-
         for (Object[] fila : resultados) {
             String nombreCarrera = (String) fila[0];
-            int antiguedad = (int) fila[1];
+            int anio = (int) fila[1];
             long graduados = (long) fila[2];
-            long noGraduados = (long) fila[3];
+            long inscriptos = (long) fila[3];
 
-            ReporteDTO dtoActual = new ReporteDTO(nombreCarrera, antiguedad, graduados, noGraduados);
+            ReporteDTO dtoActual = new ReporteDTO(nombreCarrera, anio, graduados, inscriptos);
             reporte.add(dtoActual);
         }
 

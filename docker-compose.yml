@@ -2,10 +2,8 @@ services:
   mysql-container:
     image: mysql:latest
     ports:
-      - "3307:3306"
-    volumes:
-      - ./docker/volume_mysql:/var/lib/mysql
+      - "3306:3306"
     container_name: ejercicio_2
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: test_db
+      MYSQL_DATABASE: integrador2

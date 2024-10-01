@@ -39,7 +39,7 @@ public class EstudianteRepositoryImpl extends RepositoryImpl<Estudiante,Long> im
     @Override
     public List<EstudianteDTO> obtenerEstudiantesPorCarreraYCiudad(Long idCarrera, String ciudad) {
         TypedQuery<Estudiante> q = em.createQuery(
-                "SELECT e FROM Estudiante e JOIN EstudianteCarrera ec ON e.estudiante_id = ec.estudiante.id WHERE ec.carrera.id = :carreraId AND e.ciudadResidencia = :ciudad",
+                "SELECT e FROM Estudiante e JOIN EstudianteCarrera ec ON e.dni = ec.estudiante.id WHERE ec.carrera.id = :carreraId AND e.ciudad = :ciudad",
                 Estudiante.class
         );
         q.setParameter("carreraId", idCarrera);
@@ -49,7 +49,7 @@ public class EstudianteRepositoryImpl extends RepositoryImpl<Estudiante,Long> im
 
     @Override
     public EstudianteDTO obtenerEstudianteLibreta(String libreta) {
-        TypedQuery<Estudiante> q = em.createQuery("SELECT e FROM Estudiante e WHERE e.numeroLibretaUniversitaria=:libreta", Estudiante.class);
+        TypedQuery<Estudiante> q = em.createQuery("SELECT e FROM Estudiante e WHERE e.lu=:libreta", Estudiante.class);
         q.setParameter("libreta", libreta);
         Estudiante buscado = q.getSingleResult();
         return new EstudianteDTO(buscado);
@@ -63,32 +63,15 @@ public class EstudianteRepositoryImpl extends RepositoryImpl<Estudiante,Long> im
     }
 
     @Override
-    public void matricularEstudianteEnCarrera(Long estudianteId, Long carreraId) {
+    public void matricularEstudianteEnCarrera(Long id,Long dni, Long carreraId, Integer inscripcion, Integer graduacion, Integer antiguedad) {
 
-        Estudiante estudiante = em.find(Estudiante.class, estudianteId);
-        if (estudiante == null) {
-            throw new IllegalArgumentException("Estudiante no encontrado con ID: " + estudianteId);
-        }
+        Estudiante estudiante = em.find(Estudiante.class, dni);
 
         Carrera carrera = em.find(Carrera.class, carreraId);
-        if (carrera == null) {
-            throw new IllegalArgumentException("Carrera no encontrada con ID: " + carreraId);
-        }
-
-        TypedQuery<EstudianteCarrera> query = em.createQuery(
-                "SELECT ec FROM EstudianteCarrera ec WHERE ec.estudiante.id = :estudianteId AND ec.carrera.id = :carreraId",
-                EstudianteCarrera.class
-        );
-        query.setParameter("estudianteId", estudianteId);
-        query.setParameter("carreraId", carreraId);
-
-        if (!query.getResultList().isEmpty()) {
-            throw new IllegalStateException("El estudiante ya está matriculado en esta carrera.");
-        }
 
         try {
             em.getTransaction().begin();
-            EstudianteCarrera estudianteCarrera = new EstudianteCarrera(carrera, estudiante);
+            EstudianteCarrera estudianteCarrera = new EstudianteCarrera(id,carrera, estudiante, inscripcion, graduacion, antiguedad);
             em.persist(estudianteCarrera);
             em.getTransaction().commit();
         } catch (Exception e) {
@@ -101,7 +84,8 @@ public class EstudianteRepositoryImpl extends RepositoryImpl<Estudiante,Long> im
 
     @Override
     public List<EstudianteDTO> obtenerEstudiantesPorCarrera(Long id) {
-        TypedQuery<Estudiante> q = em.createQuery("SELECT e FROM Estudiante e JOIN EstudianteCarrera ec ON e.estudiante_id = ec.id.estudianteId WHERE ec.carrera.id = :carreraId", Estudiante.class);
+        TypedQuery<Estudiante> q = em.createQuery("""
+                SELECT e FROM Estudiante e JOIN EstudianteCarrera ec ON e.dni = ec.estudiante.id WHERE ec.carrera.id = :carreraId""", Estudiante.class);
         q.setParameter("carreraId", id);
         return this.toEstudiantesDTO(q.getResultList());
     }
@@ -112,7 +96,7 @@ public class EstudianteRepositoryImpl extends RepositoryImpl<Estudiante,Long> im
         if (criterio.equalsIgnoreCase("apellido")) {
             q = em.createQuery("SELECT e FROM Estudiante e ORDER BY e.apellido", Estudiante.class);
         } else if (criterio.equalsIgnoreCase("nombres")) {
-            q = em.createQuery("SELECT e FROM Estudiante e ORDER BY e.nombres", Estudiante.class);
+            q = em.createQuery("SELECT e FROM Estudiante e ORDER BY e.nombre", Estudiante.class);
         } else {
             // traer sin orden
             q = em.createQuery("SELECT e FROM Estudiante e", Estudiante.class);

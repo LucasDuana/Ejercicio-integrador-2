@@ -11,15 +11,15 @@ public class Carrera {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long carrera_id;
     @Column
-    private String nombre;
+    private String carrera;
     @Column
     private Integer duracion;
 
     @OneToMany(mappedBy = "carrera")
     private List<EstudianteCarrera> estudiantes;
 
-    public Carrera(String nombre, Integer duracion) {
-        this.nombre = nombre;
+    public Carrera(String carrera, Integer duracion) {
+        this.carrera = carrera;
         this.duracion = duracion;
         this.estudiantes = new ArrayList<>();
     }
@@ -33,12 +33,12 @@ public class Carrera {
     }
 
 
-    public String getNombre() {
-        return nombre;
+    public String getCarrera() {
+        return carrera;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setCarrera(String carrera) {
+        this.carrera = carrera;
     }
 
     public Integer getDuracion() {

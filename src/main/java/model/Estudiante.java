@@ -8,10 +8,9 @@ import java.util.List;
 public class Estudiante {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long estudiante_id;
+    private Long dni;
     @Column
-    private String nombres;
+    private String nombre;
     @Column
     private String apellido;
     @Column
@@ -19,13 +18,9 @@ public class Estudiante {
     @Column
     private String genero;
     @Column
-    private String numeroDocumento;
+    private String ciudad;
     @Column
-    private String ciudadResidencia;
-    @Column
-    private String numeroLibretaUniversitaria;
-    @Column
-    private Boolean graduado;
+    private String lu;
 
     @OneToMany(mappedBy = "estudiante")
     private List<EstudianteCarrera> carreras;
@@ -34,29 +29,28 @@ public class Estudiante {
 
     }
 
-    public Estudiante(String nombres, String apellido, Integer edad, String genero, String numeroDocumento, String ciudadResidencia, String numeroLibretaUniversitaria, Boolean graduado) {
-        this.nombres = nombres;
+    public Estudiante(Long dni, String nombre, String apellido, Integer edad, String genero, String ciudad, String lu) {
+        this.dni = dni;
+        this.nombre = nombre;
         this.apellido = apellido;
         this.edad = edad;
         this.genero = genero;
-        this.numeroDocumento = numeroDocumento;
-        this.ciudadResidencia = ciudadResidencia;
-        this.numeroLibretaUniversitaria = numeroLibretaUniversitaria;
-        this.graduado = graduado;
-        this.carreras = new ArrayList<EstudianteCarrera>();
+        this.ciudad = ciudad;
+        this.lu = lu;
+        this.carreras = new ArrayList<>();
     }
 
     public Long getId_estudiante() {
-        return estudiante_id;
+        return dni;
     }
 
 
-    public String getNombres() {
-        return nombres;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
+    public void setNombre(String nombres) {
+        this.nombre = nombres;
     }
 
     public String getApellido() {
@@ -83,36 +77,23 @@ public class Estudiante {
         this.genero = genero;
     }
 
-    public String getNumeroDocumento() {
-        return numeroDocumento;
+
+
+
+    public String getCiudad() {
+        return ciudad;
     }
 
-    public void setNumeroDocumento(String numeroDocumento) {
-        this.numeroDocumento = numeroDocumento;
+    public void setCiudad(String ciudadResidencia) {
+        this.ciudad = ciudadResidencia;
     }
 
-    public String getCiudadResidencia() {
-        return ciudadResidencia;
+    public String getLu() {
+        return lu;
     }
 
-    public void setCiudadResidencia(String ciudadResidencia) {
-        this.ciudadResidencia = ciudadResidencia;
-    }
-
-    public String getNumeroLibretaUniversitaria() {
-        return numeroLibretaUniversitaria;
-    }
-
-    public void setNumeroLibretaUniversitaria(String numeroLibretaUniversitaria) {
-        this.numeroLibretaUniversitaria = numeroLibretaUniversitaria;
-    }
-
-    public Boolean getGraduado() {
-        return graduado;
-    }
-
-    public void setGraduado(Boolean graduado) {
-        this.graduado = graduado;
+    public void setLu(String numeroLibretaUniversitaria) {
+        this.lu = numeroLibretaUniversitaria;
     }
 
     public void addCareraa(EstudianteCarrera c){
