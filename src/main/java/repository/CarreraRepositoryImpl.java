@@ -1,6 +1,7 @@
 package repository;
 
 import DTO.CarreraDTO;
+import DTO.CarreraDTOCant;
 import DTO.ReporteDTO;
 import model.Carrera;
 
@@ -36,19 +37,23 @@ public class CarreraRepositoryImpl extends RepositoryImpl<Carrera,Long> implemen
     }
 
     @Override
-    public List<CarreraDTO> obtenerCarrerasConEstudiantesInscriptos() {
-        TypedQuery<Carrera> query = em.createQuery(
-                "SELECT c FROM Carrera c JOIN EstudianteCarrera ec ON c.id = ec.carrera.id GROUP BY c ORDER BY COUNT(ec) DESC",
-                Carrera.class
+    public List<CarreraDTOCant> obtenerCarrerasConEstudiantesInscriptos() {
+        TypedQuery<Object[]> query = em.createQuery(
+                "SELECT c, COUNT(ec) FROM Carrera c JOIN EstudianteCarrera ec ON c.id = ec.carrera.id " +
+                        "GROUP BY c ORDER BY COUNT(ec) DESC",
+                Object[].class
         );
-        return this.toCarrerasDTO(query.getResultList());
-    }
 
-    @Override
-    public int obtenerCantidadDeInscriptos() {
-        TypedQuery<Integer> query = em.createQuery("SELECT COUNT(ec) FROM EstudianteCarrera ec",Integer.class );
-        Integer count = query.getSingleResult();
-        return count!=null ?count.intValue():0;
+        List<Object[]> results = query.getResultList();
+        List<CarreraDTOCant> carrerasDTOCant = new ArrayList<>();
+
+        for (Object[] result : results) {
+            Carrera carrera = (Carrera) result[0];
+            Long cantInscriptos = (Long) result[1];  // La cantidad de inscriptos es devuelta como Long por COUNT
+            carrerasDTOCant.add(new CarreraDTOCant(carrera, cantInscriptos.intValue()));
+        }
+
+        return carrerasDTOCant;
     }
 
 

@@ -2,7 +2,7 @@ services:
   mysql-container:
     image: mysql:latest
     ports:
-      - "3306:3306"
+      - "3307:3306"
     container_name: ejercicio_2
     environment:
       MYSQL_ROOT_PASSWORD: root

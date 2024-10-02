@@ -33,7 +33,7 @@ public class CarreraDTO {
 
     @Override
     public String toString() {
-        return "CarreraDTO{" +
+        return "{" +
                 "nombre='" + carrera + '\'' +
                 ", duracion=" + duracion +
                 '}';
