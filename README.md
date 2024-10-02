@@ -19,15 +19,15 @@ Este sistema permite registrar estudiantes con la siguiente información:
 - JPQL (Java Persistence Query Language)
 - Docker (para la base de datos)
 
-##Diagramas
+## Diagramas
 
-###Diagrama de Objetos
+### Diagrama de Objetos
  
   ![Diagrama de Objetos](src/main/assets/diagramaClases.jpeg)
 
-###Diagrama DER
+### Diagrama DER
 
-  ![Diagrama DER](src/main/dere.jpeg) 
+  ![Diagrama DER](src/main/assets/dere.jpeg) 
   
 ## Funciones Implementadas
 
